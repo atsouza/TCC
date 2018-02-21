@@ -1,129 +1,199 @@
+function runTopSis() {
+    var varAuxIt = $("#info-it input:last").attr('id');
+    var itens = parseInt(varAuxIt.split('m')[1]);
+
+    var varAuxCr = $("#info-cri input:last").attr('id');
+    var criterios = parseInt(varAuxCr.split('t')[1]);
+    var pesos = [];
+    for (index = 0; index < $("#info-pcri input").length; index++) {
+        pesos[index] = (parseFloat($("#pcrit" + index).val()))/10;
+    }
+
+    //colocar aki a leiura do vetor de imporancias
+    var importancias = [1, 1 , 1 , 0]
+
+    var linha = new Object();
+
+    for (i = 0; i <= itens; i++) {
+        var coluna = new Object();
+        for (j = 0; j <= criterios; j++) {
+            // var strId = ("#" + i + "-" + j)
+            var valorCelula = $("#" + i + "-" + j).val();
+            coluna["" + j + ""] = valorCelula;
+        }
+        linha["" + i + ""] = coluna;
+    }
+
+    step1 = passo1(linha, itens, criterios);
+    step2 = passo2(step1, pesos, itens, criterios)
+    step3 = passo3(step2, importancias, itens, criterios);
+    step4 = passo4(step2, step3, itens, criterios);
+    step5 = passo5(step4, itens);
+    alert(step5);
+}
+
 //normalizar a matriz
-function passo1(matriz, numAtributos, numAlternativas) {
-    var matrizAux = matriz;
+function passo1(matrizEntrada, numAlternativas, numAtributos) {
+    var matrizAux = [];
+    var matrizSaida = [];
     var vetorSomatorioColunas = [4];
     var vetorSomatorioRaiz;
-//      $vetorSomatorioRaiz[$this->numAtributos];
     vetorSomatorioRaiz = [4];
+
     //eleva todos os elementos da matriz ao quadrado
-    for (i = 0; i < numAlternativas; i++) {
-        for (j = 0; j < numAtributos; j++) {
-            matrizAux[i][j] = Math.pow(matrizAux[i][j], 2);
+    for (i = 0; i <= numAlternativas; i++) {
+        var coluna = new Object();
+        for (j = 0; j <= numAtributos; j++) {
+            coluna[j] = Math.pow(matrizEntrada[i][j], 2);
         }
+        matrizAux[i] = coluna;
     }
 
-//realiza somatorio das colunas e eleva a 0,5
-    for (i = 0; i < numAtributos; i++) {
+    //realiza somatorio das colunas e eleva a 0,5
+    for (z = 0; z <= numAtributos; z++) {
         var soma = 0;
-        for (j = 0; j < numAlternativas; i++) {
-            soma = matrizAux[i][j] + soma;
+        for (i = 0; i <= numAlternativas; i++) {
+            soma = matrizAux[i][z] + soma;
         }
-        vetorSomatorioColunas[i] = Math.sqrt(soma);
+        vetorSomatorioColunas[z] = Math.pow(soma, 0.5).toFixed(2) ;
     }
 
-//dividir cada elemento da matriz pelos resultados do vetor de somas
-    for (i = 0; i < numAlternativas; i++) {
-        for (j = 0; j < numAtributos; j++) {
-            matrizAux[i][j] = Math.round((matriz[i][j] / vetorSomatorioColunas[j]), 2);
+    //dividir cada elemento da matriz pelos resultados do vetor de somas
+    for (i = 0; i <= numAlternativas; i++) {
+        var coluna = new Object();
+        for (j = 0; j <= numAtributos; j++) {
+            //olhar essa parte do arredondamento
+            coluna[j] = (matrizEntrada[i][j] / vetorSomatorioColunas[j]).toFixed(2);
         }
+        matrizSaida[i] = coluna;
     }
-    return matrizAux;
+
+    return matrizSaida;
 }
 
 //matriz normalizada ponderada
-function passo2(matriz, vetorPesos, numAtributos, numAlternativas) {
-    var matrizAux = matriz;
+function passo2(matrizEntrada, pesos, numAlternativas, numAtributos) {
+    var matrizSaida = [];
+
     //multiplica cada item pelo seu respectivo peso
-    for (i = 0; i < numAlternativas; i++) {
-        for (j = 0; j < numAtributos; j++) {
-            matrizAux[i][j] = matrizAux[i][j] * vetorPesos[j];
+    for (i = 0; i <= numAlternativas; i++) {
+        var coluna = new Object();
+        for (j = 0; j <= numAtributos; j++) {
+            coluna[j] = (matrizEntrada[i][j] * pesos[j]).toFixed(3);
         }
+        matrizSaida[i] = coluna;
     }
-    return matrizAux;
+
+    return matrizSaida;
 }
 
 //calculando solucoes ideais
-function passo3(matriz, vetorImportancias, numAlternativas, numAtributos) {
-
+function passo3(matrizEntrada, vetorImportancias, numAlternativas, numAtributos) {
     var ideal = [];
     var idealNegativa = [];
-    var matrizAux = matriz;
-    var valorComparacaoIdeal = matriz[1];
-    var valorComparacaoNegativa = matriz[1];
+    var matrizSaida = [];
+    var valorComparacaoIdeal = [];
+    var valorComparacaoNegativa = [];
     var retornoSolucoes = [];
+    var pivo;
 
-    for (i = 0; i < numAlternativas; i++) {
-        for (j = 0; j < numAtributos; j++) {
-            //se quanto maior melhor
-            if (vetorImportancias[j] === 1) {
-                if (valorComparacaoIdeal[j] < matrizAux[i][j]) {
-                    valorComparacaoIdeal[j] = matrizAux[i][j];
+    for (z = 0; z <= numAtributos; z++) {
+        for (i = 0; i <= numAlternativas; i++) {
+            for (j = 0; j <= numAtributos; j++) {
+
+                //pegar o primeiro elemento pra ser usado como parametro
+                if (i === 0) { pivo = matrizEntrada[i][z] }
+
+                // 1 maior melhor --- 0 menor melhor
+                if (vetorImportancias[z] === 1) {
+                    pivo = pivo < matrizEntrada[i][z] ? pivo = matrizEntrada[i][z] : pivo
                 }
-            } else {
-                if (valorComparacaoIdeal[j] > matrizAux[i][j]) {
-                    valorComparacaoIdeal[j] = matrizAux[i][j];
+                else {
+                    pivo = pivo > matrizEntrada[i][z] ? pivo = matrizEntrada[i][z] : pivo
                 }
             }
-            ideal[j] = valorComparacaoIdeal[j];
         }
+        valorComparacaoIdeal[z] = pivo;
     }
-    retornoSolucoes[0] = ideal;
+    retornoSolucoes[0] = valorComparacaoIdeal;
 
 
-    for (i = 0; i < numAlternativas; i++) {
-        for (j = 0; j < numAtributos; j++) {
-            //se quanto maior melhor
+    for (z = 0; z <= numAtributos; z++) {
+        for (i = 0; i <= numAlternativas; i++) {
+            for (j = 0; j <= numAtributos; j++) {
 
-            if (vetorImportancias[j] === 1) {
-                if (valorComparacaoNegativa[j] < matrizAux[i][j]) {
-                    valorComparacaoNegativa[j] = matrizAux[i][j];
+                //pegar o primeiro elemento pra ser usado como parametro
+                if (i === 0) { pivo = matrizEntrada[i][z] }
+
+                // 1 maior melhor --- 0 menor melhor
+                if (vetorImportancias[z] === 1) {
+                    pivo = pivo > matrizEntrada[i][z] ? pivo = matrizEntrada[i][z] : pivo
+                }
+                else {
+                    pivo = pivo < matrizEntrada[i][z] ? pivo = matrizEntrada[i][z] : pivo
                 }
             }
-//se quanto menor melhor
-            else {
-                if (valorComparacaoNegativa[j] > matrizAux[i][j]) {
-                    valorComparacaoNegativa[j] = matrizAux[i][j];
-                }
-            }
-            idealNegativa[j] = valorComparacaoNegativa[j];
         }
+        valorComparacaoNegativa[z] = pivo;
     }
-    retornoSolucoes[1] = idealNegativa;
+    retornoSolucoes[1] = valorComparacaoNegativa;
+
     return retornoSolucoes;
+
+
+    // for (i = 0; i < numAlternativas; i++) {
+    //     for (j = 0; j < numAtributos; j++) {
+    //         //se quanto maior melhor
+
+    //         if (vetorImportancias[j] === 1) {
+    //             if (valorComparacaoNegativa[j] < matrizAux[i][j]) {
+    //                 valorComparacaoNegativa[j] = matrizAux[i][j];
+    //             }
+    //         }
+    //         //se quanto menor melhor
+    //         else {
+    //             if (valorComparacaoNegativa[j] > matrizAux[i][j]) {
+    //                 valorComparacaoNegativa[j] = matrizAux[i][j];
+    //             }
+    //         }
+    //         idealNegativa[j] = valorComparacaoNegativa[j];
+    //     }
+    // }
+    // retornoSolucoes[1] = idealNegativa;
+    // return retornoSolucoes;
 }
 
 //calculando medida de separacao
-function passo4(matriz, retornoSolucoes, numAlternativas, numAtributos) {
+function passo4(matrizEntrada, retornoSolucoes, numAlternativas, numAtributos) {
     var ideal = retornoSolucoes[0];
     var idealNegativa = retornoSolucoes[1];
-    var matrizAux = matriz;
+    var matrizSaida = [];
     var retorno = [];
-    var somatorioMedSepIdeal = [];
-    var somatorioMedSepIdealNegativa = [];
     var medidaSeparacaoIdeal = [];
     var medidaSeparacaoIdealNegativa = [];
 
     // $retornoMedidas = array();
 
     //para a medida ideal
-    for (i = 0; i < numAlternativas; i++) {
-        for (j = 0; j < numAtributos; j++) {
-            var auxSoma = (matrizAux[i][j] - ideal[j]);
-            somatorioMedSepIdeal[i] = somatorioMedSepIdeal[i] + Math.pow(auxSoma, 2);
+    for (i = 0; i <= numAlternativas; i++) {
+        var somatorioMedSepIdeal = 0;
+        for (j = 0; j <= numAtributos; j++) {
+            somatorioMedSepIdeal = somatorioMedSepIdeal + Math.pow((matrizEntrada[i][j] - ideal[j]), 2);
         }
-        medidaSeparacaoIdeal[i] = round((pow(somatorioMedSepIdeal[i], 0.5)), 3);
+        medidaSeparacaoIdeal[i] = (Math.pow(somatorioMedSepIdeal, 0.5)).toFixed(3);
     }
     retorno[0] = medidaSeparacaoIdeal;
 
     //para a medida ideal negativa
-    for (i = 0; i < numAlternativas; i++) {
-        for (j = 0; j < numAtributos; j++) {
-            var auxSoma = (matrizAux[i][j] - idealNegativa[$j]);
-            somatorioMedSepIdealNegativa[i] = somatorioMedSepIdealNegativa[i] + pow(auxSoma, 2);
+    for (i = 0; i <= numAlternativas; i++) {
+        var somatorioMedSepIdealNegativa = 0;
+        for (j = 0; j <= numAtributos; j++) {
+            somatorioMedSepIdealNegativa = somatorioMedSepIdealNegativa + Math.pow((matrizEntrada[i][j] - idealNegativa[j]), 2);
         }
-        medidaSeparacaoIdealNegativa[i] = round((pow(somatorioMedSepIdealNegativa[i], 0.5)), 3);
+        medidaSeparacaoIdealNegativa[i] = (Math.pow(somatorioMedSepIdealNegativa, 0.5)).toFixed(3);
     }
     retorno[1] = medidaSeparacaoIdealNegativa;
+
     return retorno;
 }
 
@@ -136,24 +206,21 @@ function passo5(retornoMedidas, numAlternativas) {
     var indice = 0;
 
     //para calcular os valores finais
-    for (i = 0; i < numAlternativas; i++) {
-        var final = 0;
-        var soma = 0;
-        soma = ideal[i] + idealNegativa[i];
-        final = idealNegativa[i] / soma;
-        resultadoFinal[i] = final;
+    for (i = 0; i <= numAlternativas; i++) {
+        var soma = parseFloat(ideal[i]) + parseFloat(idealNegativa[i]); 
+        resultadoFinal[i] = parseFloat(idealNegativa[i]) / soma ;
     }
 
-    var aux = resultadoFinal[0];
+    var pivo = resultadoFinal[0];
     //escolhhendo melhor valor final
-    for (i = 0; i < numAlternativas; i++) {
-        if (aux < resultadoFinal[i]) {
+    for (i = 0; i <= numAlternativas; i++) {
+        if (pivo < resultadoFinal[i]) {
             indice = i;
-            aux = resultadoFinal[i];
+            pivo = resultadoFinal[i];
         }
     }
     retorno[0] = indice;
-    retorno[1] = aux;
+    retorno[1] = pivo;
 
     return retorno;
 }
