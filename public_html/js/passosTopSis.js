@@ -10,7 +10,7 @@ function runTopSis() {
     }
 
     //colocar aki a leiura do vetor de imporancias
-    var importancias = [1, 1 , 1 , 0]
+    var importancias = [1, 1 , 1 , 0];
 
     var linha = new Object();
 

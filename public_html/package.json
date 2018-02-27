@@ -1,6 +1,1 @@
-{
-    "name": "Adenir",
-    "scripts": {
-        "start": "node server.js"
-    }
-}
+
