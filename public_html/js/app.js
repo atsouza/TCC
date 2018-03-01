@@ -77,6 +77,19 @@ function montarMatriz() {
         }
         contador++;
     }
+    
+    document.querySelector('#info-importancia').innerHTML = "<label>Importâncias</label></br>";
+    contCritAux = 0;
+    contador = 0;
+    while (contador < contCriterio) {
+        var idImportancia = "#maxmin" + contador;
+        var aux = document.querySelector(idImportancia);
+        if (aux != null) {
+            document.querySelector('#info-importancia').innerHTML += "" + (contCritAux + 1) + ":<input id='pimportancia" + contCritAux + "' name='peso-importancia" + contCritAux + "' readonly='readonly' value='" + aux.value + "'></input></br>";
+            contCritAux++;
+        }
+        contador++;
+    }
 //    for (var i = 0; i < contCriterio; i++) {
 //        var idPesoCrit = "#peso-criterio" + i;
 //        var aux = document.querySelector(idPesoCrit).value;
@@ -127,7 +140,7 @@ function addItem() {
 
 function addCriterio() {
     var wrapper = $("#area-criterios"); //Fields wrapper
-    $(wrapper).append('<div class="area-criterio' + contCriterio + '"><input type="text" id="criterio' + contCriterio + '" placeholder="Criterio ' + (contCriterio + 1) + '"></input><input type="number" id="peso-criterio' + contCriterio + '" placeholder="Peso Criterio' + (contCriterio + 1) + '"></input><input class="max-min-field" type="number" id="maxmin'+contCriterio+'" placeholder="Max or Min"></input><a href="#" class="remove_field">X</a></div>'); //add input box
+    $(wrapper).append('<div class="area-criterio' + contCriterio + '"><input type="text" id="criterio' + contCriterio + '" placeholder="Criterio ' + (contCriterio + 1) + '"></input><input type="number" id="peso-criterio' + contCriterio + '" placeholder="Peso Criterio' + (contCriterio + 1) + '"></input><input class="max-min-field" type="text" id="maxmin'+contCriterio+'" placeholder="Max or Min"></input><a href="#" class="remove_field">X</a></div>'); //add input box
     contCriterio++;
     $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
         e.preventDefault();
