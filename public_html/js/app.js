@@ -5,9 +5,9 @@ function showWidth() {
 
 function hideShowInfo() {
     if (document.getElementById('spoiler').style.display == 'none') {
-        document.getElementById('spoiler').style.display = ''
+        document.getElementById('spoiler').style.display = '';
     } else {
-        document.getElementById('spoiler').style.display = 'none'
+        document.getElementById('spoiler').style.display = 'none';
     }
 }
 
@@ -127,7 +127,7 @@ function addItem() {
 
 function addCriterio() {
     var wrapper = $("#area-criterios"); //Fields wrapper
-    $(wrapper).append('<div class="area-criterio' + contCriterio + '"><input type="text" id="criterio' + contCriterio + '" placeholder="Criterio ' + (contCriterio + 1) + '"></input><input type="number" id="peso-criterio' + contCriterio + '" placeholder="Peso Criterio' + (contCriterio + 1) + '"></input><a href="#" class="remove_field">X</a></div>'); //add input box
+    $(wrapper).append('<div class="area-criterio' + contCriterio + '"><input type="text" id="criterio' + contCriterio + '" placeholder="Criterio ' + (contCriterio + 1) + '"></input><input type="number" id="peso-criterio' + contCriterio + '" placeholder="Peso Criterio' + (contCriterio + 1) + '"></input><input class="max-min-field" type="number" id="maxmin'+contCriterio+'" placeholder="Max or Min"></input><a href="#" class="remove_field">X</a></div>'); //add input box
     contCriterio++;
     $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
         e.preventDefault();

@@ -1,58 +1,72 @@
 /* General CSS rules for every viewport, including smartphones */
+.lbl-item {
+    position: absolute;
+    left: -10px;
+    top: 50px;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+    font-size: 20px;
+}
+
+.lbl-criterio {
+    font-size: 20px;
+}
 
 .remove_field {
-  text-decoration: none;
-  color: red;
+    text-decoration: none;
+    color: red;
 }
 
 #mySidenav p{
-  text-align: justify;
-  margin-left: 5px;
-  margin-right: 5px;
+    text-align: justify;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .info-container {
-  text-align: center;
-  width: 100%;
-  height: 120px;
+    text-align: center;
+    width: 100%;
+    height: 120px;
 }
 
 .infos {
-  float: left;
-  margin-left: 5px;
-  margin-right: 5px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  width: 32%;
-  max-height: 150px;
-  overflow: auto;
+    float: left;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    width: 32%;
+    max-height: 150px;
+    overflow: auto;
 }
 
 .infos input{
-  text-decoration: none;
-  border: none;
-  text-align: center;
+    text-decoration: none;
+    border: none;
+    text-align: center;
 }
 
 .criterios,
 .itens,
 .configs{
-  border: 2px solid #0c00ff;
-  border-radius: 10px;
+    border: 2px solid #0c00ff;
+    border-radius: 10px;
 }
 
 .criterios {
-  text-align: center;
+    text-align: center;
 }
 
 .itens {
-  margin-top: 2px;
-  text-align: center;
+    margin-top: 2px;
+    text-align: center;
 }
 
 .itens a{
-  text-decoration: none;
-  color: red;
+    text-decoration: none;
+    color: red;
 }
 
 .configs {
@@ -60,125 +74,126 @@
 }
 
 .celula {
-  text-align: center;
-  margin: 2px;
-  width: 50px;
+    text-align: center;
+    margin: 2px;
+    width: 50px;
 }
 
 .content {
-  max-width: 100%;
+    max-width: 100%;
 }
 
 .container {
-  width: 1200px;
-  margin: 0 auto;
+    width: 1200px;
+    margin: 0 auto;
 }
 
 .configuracao {
-  text-align: center;
+    text-align: center;
 }
 
 .areaMatriz {
-  margin-top: 2px;
+    margin-top: 2px;
 }
 
 .matriz-content {
-  border: 2px solid #0c00ff;
-  border-radius: 10px;
-  margin-top: 15px;
-  overflow: auto;
-  padding: 15px;
+    position: relative;
+    border: 2px solid #0c00ff;
+    border-radius: 10px;
+    margin-top: 15px;
+    overflow: auto;
+    padding: 15px;
 }
 
 .areaInfo {
-  border: 2px solid #4CAF50;
-  padding: 10px;
-  border-radius: 10px;
+    border: 2px solid #4CAF50;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .linhaMatriz {
-  white-space: nowrap;
+    white-space: nowrap;
 }
 
 .rotuloAlternativa {
-  float: left;
-  border: 1px solid black;
-  margin-right: 5px;
-  padding: 1px;
-  border-radius: 1px;
-  text-align: center;
+    float: left;
+    border: 1px solid black;
+    margin-right: 5px;
+    padding: 1px;
+    border-radius: 1px;
+    text-align: center;
 }
 
 .rotuloAtributo {
-  border: 1px solid black;
-  padding: 1px;
-  padding-left: 20px;
-  padding-right: 20px;
+    border: 1px solid black;
+    padding: 1px;
+    padding-left: 20px;
+    padding-right: 20px;
 
-  /*margin-left: 0px;*/
-  /*margin-right: 20px;*/
-  border-radius: 1px;
-  text-align: center;
+    /*margin-left: 0px;*/
+    /*margin-right: 20px;*/
+    border-radius: 1px;
+    text-align: center;
 }
 
 #label-atributo {
-  margin-left: 20px;
+    margin-left: 20px;
 }
 
 .alternativa {
-  margin-right: 3px;
+    margin-right: 3px;
 }
 
 .atributo {
-  margin-right: 3px;
+    margin-right: 3px;
 }
 
 .peso {
-  margin-right: 3px;
+    margin-right: 3px;
 }
 
 .importancia {
-  margin-right: 3px;
+    margin-right: 3px;
 }
 
 .botao1 {
-  border-radius: 15px;
-  border: 2px solid #0c00ff;
-  color: white;
-  background-color: #0c00ff;
-  display: inline-block;
-  font-size: 16px;
-  text-align: center;
-  text-decoration: none;
-  padding: 15px 32px;
-  transition-duration: 1s;
+    border-radius: 15px;
+    border: 2px solid #0c00ff;
+    color: white;
+    background-color: #0c00ff;
+    display: inline-block;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    padding: 15px 32px;
+    transition-duration: 1s;
 }
 
 .botao1:focus {
-  outline: none;
+    outline: none;
 }
 
 .botao-run {
-  text-align: right;
-  margin-top: 5px;
+    text-align: right;
+    margin-top: 5px;
 }
 
 .botao-edit {
-  border: none;
-  padding: 5px 10px;
-  font-size: 12px;
-  text-align: center;
-  text-decoration: none;
-  color: white;
-  background-color: #0c00ff;
-  display: inline-block;
-  margin-bottom: -15px;
+    border: none;
+    padding: 5px 10px;
+    font-size: 12px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background-color: #0c00ff;
+    display: inline-block;
+    margin-bottom: -15px;
 }
 
 /*DAQUI*/
 /* esse trecho faz sumir as setas dos campos type="number" */
 [type="number"] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
 [type="number"]::-webkit-outer-spin-button,
 [type="number"]::-webkit-inner-spin-button {
@@ -190,52 +205,52 @@
 /* The side navigation menu */
 .sidenav {
 
-   height: 100%; /* 100% Full-height */
-   width: 0; /* 0 width - change this with JavaScript */
-   position: fixed; /* Stay in place */
-   z-index: 1; /* Stay on top */
-   top: 0;
-   left: 0;
-   background-color: #ccc;
-   overflow-x: hidden; /* Disable horizontal scroll */
-   padding-top: 60px; /* Place content 60px from the top */
-   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #ccc;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
 /* The navigation menu links */
 .sidenav a {
-   padding: 8px 8px 8px 32px;
-   text-decoration: none;
-   font-size: 25px;
-   color: #818181;
-   display: block;
-   transition: 0.3s
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
 }
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover, .offcanvas a:focus{
-   color: #f1f1f1;
+    color: #f1f1f1;
 }
 
 /* Position and style the close button (top right corner) */
 .sidenav .closebtn {
-   position: absolute;
-   top: 0;
-   right: 25px;
-   font-size: 36px;
-   margin-left: 50px;
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
 }
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 #main {
-   transition: margin-left .5s;
-   padding: 20px;
+    transition: margin-left .5s;
+    padding: 20px;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
-   .sidenav {padding-top: 15px;}
-   .sidenav a {font-size: 18px;}
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
 }
 
 
