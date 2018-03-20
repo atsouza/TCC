@@ -115,7 +115,7 @@ function gerarMatriz(nItens, nCriterios) {
 
 //             placeholder='"+auxI+" - "+auxC+"'
 //             title='item: " + (i + 1) + " criterio: " + (j + 1) + "'
-            codigoMatriz += "<input type='number' title='item: " + auxI + " criterio: " + auxC + "'  class='celula' name='matriz" + i + j + "' id='matriz" + i + j + "'>";
+            codigoMatriz += "<input type='number' title='item: " + auxI + " criterio: " + auxC + "'  class='celula' name='matriz" + i +"-"+ j + "' id='matriz" + i + "-" + j + "'>";
         }
         codigoMatriz += "</div>";
     }

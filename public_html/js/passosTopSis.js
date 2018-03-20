@@ -1,16 +1,23 @@
-function runTopSis() {
+function runTopSis() {    
     var varAuxIt = $("#info-it input:last").attr('id');
     var itens = parseInt(varAuxIt.split('m')[1]);
 
     var varAuxCr = $("#info-cri input:last").attr('id');
     var criterios = parseInt(varAuxCr.split('t')[1]);
     var pesos = [];
+    var importancias = [];
+
     for (index = 0; index < $("#info-pcri input").length; index++) {
         pesos[index] = (parseFloat($("#pcrit" + index).val()))/10;
+
+        //se max entao 1 , min entao 0
+        if (    $("#pimportancia" + index).val() == 'min'   ) {
+            importancias[index] = 0;
+        }else{
+            importancias[index] = 1;
+        }
     }
 
-    //colocar aki a leiura do vetor de imporancias
-    var importancias = [1, 1 , 1 , 0];
 
     var linha = new Object();
 
@@ -18,7 +25,7 @@ function runTopSis() {
         var coluna = new Object();
         for (j = 0; j <= criterios; j++) {
             // var strId = ("#" + i + "-" + j)
-            var valorCelula = $("#" + i + "-" + j).val();
+            var valorCelula = $("#matriz" + i + "-" + j).val();
             coluna["" + j + ""] = valorCelula;
         }
         linha["" + i + ""] = coluna;
@@ -29,7 +36,13 @@ function runTopSis() {
     step3 = passo3(step2, importancias, itens, criterios);
     step4 = passo4(step2, step3, itens, criterios);
     step5 = passo5(step4, itens);
-    alert(step5);
+    
+    var idRetorno = "#itm"+step5[0];
+    var itemRetorno = $(idRetorno).val();
+    
+    var stringRetorno = "O item "+itemRetorno+" é o que obteve melhor nota. Sua nota foi: "+ step5[1];
+    
+    alert(stringRetorno);
 }
 
 //normalizar a matriz
