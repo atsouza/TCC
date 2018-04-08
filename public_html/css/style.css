@@ -1,4 +1,17 @@
 /* General CSS rules for every viewport, including smartphones */
+#navbar{
+    width: 100%;    
+}
+
+#navbar a{
+    float: left;
+    box-sizing: border-box; 
+    margin: 5px;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 3px;
+}
+
 .lbl-item {
     position: absolute;
     left: -10px;
