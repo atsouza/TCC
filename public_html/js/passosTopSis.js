@@ -1,4 +1,7 @@
-function runTopSis() {    
+var arrayItensNames = [];
+var exportString = '';
+
+function runTopSis() {
     var varAuxIt = $("#info-it input:last").attr('id');
     var itens = parseInt(varAuxIt.split('m')[1]);
 
@@ -8,20 +11,32 @@ function runTopSis() {
     var importancias = [];
 
     for (index = 0; index < $("#info-pcri input").length; index++) {
-        pesos[index] = (parseFloat($("#pcrit" + index).val()))/10;
+        pesos[index] = (parseFloat($("#pcrit" + index).val())) / 10;
 
         //se max entao 1 , min entao 0
-        if (    $("#pimportancia" + index).val() == 'min'   ) {
+        if ($("#pimportancia" + index).val() == 'min') {
             importancias[index] = 0;
-        }else{
+        } else {
             importancias[index] = 1;
         }
     }
 
-
     var linha = new Object();
 
+    //pegando escopo dos criterios
+    exportString = exportString + itens + '^';
+
     for (i = 0; i <= itens; i++) {
+
+        //pegando escopo dos criterios
+        exportString = exportString + ',' + $("#itm" + i).val();
+
+        //atribuindo novo vetor para ordenação
+        var itemName = [];
+        itemName['name'] = '';
+        itemName['name'] = $("#itm" + i).val();
+        arrayItensNames[i] = itemName;
+
         var coluna = new Object();
         for (j = 0; j <= criterios; j++) {
             // var strId = ("#" + i + "-" + j)
@@ -31,18 +46,55 @@ function runTopSis() {
         linha["" + i + ""] = coluna;
     }
 
+    //pegando escopo dos criterios
+    exportString = exportString + '~' + criterios  + '^';
+    for (i = 0; i <= criterios; i++) {
+        exportString = exportString + ',' + $("#crit" + i).val();
+    }
+
+    //pegando escopo dos pesos
+    exportString = exportString + '~' + criterios  + '^';
+    for (i = 0; i <= criterios; i++) {
+        exportString = exportString + ',' + $("#pcrit" + i).val();
+    }
+
+    //pegando escopo das importancias
+    exportString = exportString + '~' + criterios  + '^';
+    for (i = 0; i <= criterios; i++) {
+        var aux = $("#pimportancia" + i).val();
+        if (aux.length < 1) {
+            exportString = exportString + ',' + 'max';
+        } else {
+            exportString = exportString + ',' + 'min';
+        }
+    }
+
+    //pegando matriz
+    exportString = exportString + '~^';
+    for (i = 0; i <= itens; i++) {
+        for (j = 0; j <= criterios; j++) {
+            exportString = exportString + ',' + $("#matriz" + i + "-" + j).val();
+        }
+    }
+
     step1 = passo1(linha, itens, criterios);
     step2 = passo2(step1, pesos, itens, criterios)
     step3 = passo3(step2, importancias, itens, criterios);
     step4 = passo4(step2, step3, itens, criterios);
     step5 = passo5(step4, itens);
+
+    // var idRetorno = "#itm"+step5[0];
+    // var itemRetorno = $(idRetorno).val();
+    // var stringRetorno = "O item "+itemRetorno+" é o que obteve melhor nota. Sua nota foi: "+ step5[1];
+    // alert(stringRetorno);
     
-    var idRetorno = "#itm"+step5[0];
-    var itemRetorno = $(idRetorno).val();
-    
-    var stringRetorno = "O item "+itemRetorno+" é o que obteve melhor nota. Sua nota foi: "+ step5[1];
-    
-    alert(stringRetorno);
+    alert('resultado foi imprimido no console');
+    console.log(step5);
+
+    exporta();
+
+    $("#btn-option").hide();
+    $("#btn-export").show();
 }
 
 //normalizar a matriz
@@ -68,7 +120,7 @@ function passo1(matrizEntrada, numAlternativas, numAtributos) {
         for (i = 0; i <= numAlternativas; i++) {
             soma = matrizAux[i][z] + soma;
         }
-        vetorSomatorioColunas[z] = Math.pow(soma, 0.5).toFixed(2) ;
+        vetorSomatorioColunas[z] = Math.pow(soma, 0.5).toFixed(2);
     }
 
     //dividir cada elemento da matriz pelos resultados do vetor de somas
@@ -220,20 +272,79 @@ function passo5(retornoMedidas, numAlternativas) {
 
     //para calcular os valores finais
     for (i = 0; i <= numAlternativas; i++) {
-        var soma = parseFloat(ideal[i]) + parseFloat(idealNegativa[i]); 
-        resultadoFinal[i] = parseFloat(idealNegativa[i]) / soma ;
+        var soma = parseFloat(ideal[i]) + parseFloat(idealNegativa[i]);
+        resultadoFinal[i] = parseFloat(idealNegativa[i]) / soma;
     }
 
-    var pivo = resultadoFinal[0];
-    //escolhhendo melhor valor final
+    //preenche o vetor de nome, com os valores finais obtidos de cada item
     for (i = 0; i <= numAlternativas; i++) {
-        if (pivo < resultadoFinal[i]) {
-            indice = i;
-            pivo = resultadoFinal[i];
-        }
+        arrayItensNames[i]['value'] = resultadoFinal[i];
     }
-    retorno[0] = indice;
-    retorno[1] = pivo;
 
-    return retorno;
+    arrayItensNames.sort(sortFunction);
+
+    // var pivo = resultadoFinal[0];
+    // //escolhhendo melhor valor final
+    // for (i = 0; i <= numAlternativas; i++) {
+    //     if (pivo < resultadoFinal[i]) {
+    //         indice = i;
+    //         pivo = resultadoFinal[i];
+    //     }
+    // }
+    // retorno[0] = indice;
+    // retorno[1] = pivo;
+
+    // return retorno;
+    return arrayItensNames;
 }
+
+function sortFunction(a, b) {
+    if (a['value'] === b['value']) {
+        return 0;
+    }
+    else {
+        return (a['value'] > b['value']) ? -1 : 1;
+    }
+}
+
+function exporta() {
+    $.ajax({
+        url: 'ajax.php',
+        type: 'POST',
+        data: { "string": exportString },
+        success: function (retorno) {
+            try {
+                // meusPedidos = jQuery.parseJSON(retorno);
+                // alert('deu certo');
+            } catch (e) {
+                // modal('Erro', r, "PROSSEGUIR");
+                alert('deu errado');
+            }
+        },
+        error: function (a, b, c) {
+            modal('Erro', 'Verifique sua conexão.', "PROSSEGUIR");
+        }
+    });
+}
+
+function importa(nomeArquivo) {
+    debugger;
+    $.ajax({
+        url: 'ajax.php',
+        type: 'POST',
+        data: { "arquivo": nomeArquivo },
+        success: function (retorno) {
+            try {
+                meusPedidos = jQuery.parseJSON(retorno);
+                alert('deu certo');
+            } catch (e) {
+                // modal('Erro', r, "PROSSEGUIR");
+                alert('deu errado');
+            }
+        },
+        error: function (a, b, c) {
+            modal('Erro', 'Verifique sua conexão.', "PROSSEGUIR");
+        }
+    });
+}
+
