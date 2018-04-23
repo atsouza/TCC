@@ -45,6 +45,9 @@ if ( !empty($_POST['arquivo']) ){
     $matriz = explode('^,', $aux[4])[1];   
     $arrayRetorno[4] = $matriz;
     
+     $arrayRetorno[5] = $qtdItens; 
+     $arrayRetorno[6] = $qtdCriterios;
+    
     echo json_encode($arrayRetorno);
 }
 

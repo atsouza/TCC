@@ -82,11 +82,6 @@ function runTopSis() {
     step3 = passo3(step2, importancias, itens, criterios);
     step4 = passo4(step2, step3, itens, criterios);
     step5 = passo5(step4, itens);
-
-    // var idRetorno = "#itm"+step5[0];
-    // var itemRetorno = $(idRetorno).val();
-    // var stringRetorno = "O item "+itemRetorno+" é o que obteve melhor nota. Sua nota foi: "+ step5[1];
-    // alert(stringRetorno);
     
     alert('resultado foi imprimido no console');
     console.log(step5);
