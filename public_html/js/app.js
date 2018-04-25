@@ -41,11 +41,6 @@ function montarMatriz() {
         }
         contador++;
     }
-//    for (var i = 0; i < contItem; i++) {
-//        var idItem = "#item" + i;
-//        var aux = document.querySelector(idItem).value;
-//        document.querySelector('#info-it').innerHTML += "" + (i + 1) + ":<input name='item" + i + "' readonly='readonly' value='" + aux + "'></input></br>";
-//    }
 
     document.querySelector('#info-cri').innerHTML = "<label>Criterio</label></br>";
     var contCritAux = 0;
@@ -59,11 +54,6 @@ function montarMatriz() {
         }
         contador++;
     }
-//    for (var i = 0; i < contCriterio; i++) {
-//        var idCrit = "#criterio" + i;
-//        var aux = document.querySelector(idCrit).value;
-//        document.querySelector('#info-cri').innerHTML += "" + (i + 1) + ":<input name='criterio" + i + "' readonly='readonly' value='" + aux + "'></input></br>";
-//    }
 
     document.querySelector('#info-pcri').innerHTML = "<label>PesoCriterio</label></br>";
     contCritAux = 0;
@@ -79,18 +69,18 @@ function montarMatriz() {
     }
 
     document.querySelector('#info-importancia').innerHTML = "<label>Importâncias</label></br>";
-    contCritAux = 0;
+    var contImport = 0;
     contador = 0;
     while (contador < contCriterio) {
         var idImportancia = "maxmin" + contador;
-        var aux = document.getElementsByName(idImportancia);        
+        var aux = document.getElementsByName(idImportancia);
         var checkedItem = document.querySelector(`[name=maxmin${contador}]:checked`);
-        
-        if(checkedItem){            
-            document.querySelector('#info-importancia').innerHTML += "" + (contCritAux + 1) + ":<input id='pimportancia" + contCritAux + "' name='peso-importancia" + contCritAux + "' readonly='readonly' value='" + checkedItem.value + "'></input></br>";
-            contCritAux++;
+
+        if (checkedItem) {
+            document.querySelector('#info-importancia').innerHTML += "" + (contImport + 1) + ":<input id='pimportancia" + contImport + "' name='peso-importancia" + contImport + "' readonly='readonly' value='" + checkedItem.value + "'></input></br>";
+            contImport++;
         }
-        
+
 //        if (aux[0] != null) {            
 //            console.log("cu " + aux[0].value);
 //            document.querySelector('#info-importancia').innerHTML += "" + (contCritAux + 1) + ":<input id='pimportancia" + contCritAux + "' name='peso-importancia" + contCritAux + "' readonly='readonly' value='" + aux[0].value + "'></input></br>";
@@ -98,15 +88,16 @@ function montarMatriz() {
 //        }
         contador++;
     }
-//    for (var i = 0; i < contCriterio; i++) {
-//        var idPesoCrit = "#peso-criterio" + i;
-//        var aux = document.querySelector(idPesoCrit).value;
-//        document.querySelector('#info-pcri').innerHTML += "" + (i + 1) + ":<input name='peso-criterio" + i + "' readonly='readonly' value='" + aux + "'></input></br>";
-//    }
+
+    if (contImport !== contCritAux) {
+        alert("cheque todas as importancias!");
+    } else {
+        hideConfigsContent();
+        gerarMatriz(contItemAux, contCritAux);
+    }
 
     // matriz.innerHTML += "</div>";
 
-    gerarMatriz(contItemAux, contCritAux);
 }
 
 
