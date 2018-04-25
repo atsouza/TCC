@@ -77,17 +77,25 @@ function montarMatriz() {
         }
         contador++;
     }
-    
+
     document.querySelector('#info-importancia').innerHTML = "<label>Importâncias</label></br>";
     contCritAux = 0;
     contador = 0;
     while (contador < contCriterio) {
-        var idImportancia = "#maxmin" + contador;
-        var aux = document.querySelector(idImportancia);
-        if (aux != null) {
-            document.querySelector('#info-importancia').innerHTML += "" + (contCritAux + 1) + ":<input id='pimportancia" + contCritAux + "' name='peso-importancia" + contCritAux + "' readonly='readonly' value='" + aux.value + "'></input></br>";
+        var idImportancia = "maxmin" + contador;
+        var aux = document.getElementsByName(idImportancia);        
+        var checkedItem = document.querySelector(`[name=maxmin${contador}]:checked`);
+        
+        if(checkedItem){            
+            document.querySelector('#info-importancia').innerHTML += "" + (contCritAux + 1) + ":<input id='pimportancia" + contCritAux + "' name='peso-importancia" + contCritAux + "' readonly='readonly' value='" + checkedItem.value + "'></input></br>";
             contCritAux++;
         }
+        
+//        if (aux[0] != null) {            
+//            console.log("cu " + aux[0].value);
+//            document.querySelector('#info-importancia').innerHTML += "" + (contCritAux + 1) + ":<input id='pimportancia" + contCritAux + "' name='peso-importancia" + contCritAux + "' readonly='readonly' value='" + aux[0].value + "'></input></br>";
+//            contCritAux++;
+//        }
         contador++;
     }
 //    for (var i = 0; i < contCriterio; i++) {
@@ -115,7 +123,7 @@ function gerarMatriz(nItens, nCriterios) {
 
 //             placeholder='"+auxI+" - "+auxC+"'
 //             title='item: " + (i + 1) + " criterio: " + (j + 1) + "'
-            codigoMatriz += "<input type='number' title='item: " + auxI + " criterio: " + auxC + "'  class='celula' name='matriz" + i +"-"+ j + "' id='matriz" + i + "-" + j + "'>";
+            codigoMatriz += "<input type='number' title='item: " + auxI + " criterio: " + auxC + "'  class='celula' name='matriz" + i + "-" + j + "' id='matriz" + i + "-" + j + "'>";
         }
         codigoMatriz += "</div>";
     }
@@ -140,7 +148,7 @@ function addItem() {
 
 function addCriterio() {
     var wrapper = $("#area-criterios"); //Fields wrapper
-    $(wrapper).append('<div class="area-criterio' + contCriterio + '"><input type="text" id="criterio' + contCriterio + '" placeholder="Criterio ' + (contCriterio + 1) + '"></input><input type="number" id="peso-criterio' + contCriterio + '" placeholder="Peso Criterio' + (contCriterio + 1) + '"></input><input name="maxmin'+contCriterio+'" class="max-min-field" type="radio" id="max'+contCriterio+'">Max</input><input name="maxmin'+contCriterio+'" class="max-min-field" type="radio" id="min'+contCriterio+'">Min</input><a href="#" class="remove_field">X</a></div>'); //add input box
+    $(wrapper).append('<div class="area-criterio' + contCriterio + '"><input type="text" id="criterio' + contCriterio + '" placeholder="Criterio ' + (contCriterio + 1) + '"></input><input type="number" id="peso-criterio' + contCriterio + '" placeholder="Peso Criterio' + (contCriterio + 1) + '"></input><input name="maxmin' + contCriterio + '" class="max-min-field" type="radio" value="max" id="max' + contCriterio + '">Max</input><input name="maxmin' + contCriterio + '" class="max-min-field" type="radio" value="min" id="min' + contCriterio + '">Min</input><a href="#" class="remove_field">X</a></div>'); //add input box
     contCriterio++;
     $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
         e.preventDefault();
