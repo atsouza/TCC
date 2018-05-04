@@ -322,24 +322,4 @@ function exporta() {
     });
 }
 
-function importa(nomeArquivo) {
-    debugger;
-    $.ajax({
-        url: 'ajax.php',
-        type: 'POST',
-        data: { "arquivo": nomeArquivo },
-        success: function (retorno) {
-            try {
-                meusPedidos = jQuery.parseJSON(retorno);
-                alert('deu certo');
-            } catch (e) {
-                // modal('Erro', r, "PROSSEGUIR");
-                alert('deu errado');
-            }
-        },
-        error: function (a, b, c) {
-            modal('Erro', 'Verifique sua conexão.', "PROSSEGUIR");
-        }
-    });
-}
 

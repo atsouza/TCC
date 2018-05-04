@@ -39,7 +39,7 @@ echo "
                     </div>
 
                     <div class='botao-run'>
-                        <button class='botao1' onclick='montarMatriz();' title='Montar Matriz de Dados'>Confirmar</button>
+                        <button class='botao1' onclick='hideConfigsContent();montarMatriz();' title='Montar Matriz de Dados'>Confirmar</button>
                     </div>
 
                 </div>
@@ -84,8 +84,12 @@ echo "
 
                 <br>
 
-                <div id='btn-import' >
-                    <button onclick=importa('meu_arquivo.txt');>Carregar Arquivo</button>
+                <div id='btn-import'>
+                    <form action='colocar a pagina com a matriz gerada' method='post' enctype='multipart/form-data'>
+                        <input type='file' name='upload' id='upload'><br> 
+                        <input type='submit' value='Enviar'> 
+                        <input type='reset' value='Apagar'>
+                    </form>
                 </div>
 
                 <br>

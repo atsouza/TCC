@@ -11,9 +11,10 @@ if ( !empty($_POST['string']) ){
     fclose($fp);
 }
 
-if ( !empty($_POST['arquivo']) ){
+// if ( !empty($_POST['arquivo']) ){
+if ( !empty($_FILES["upload"]) ){
 
-    $arquivo =  fopen ($_POST['arquivo'], "r");
+    $arquivo =  fopen ($_FILES['upload']['name'], "r");
 
     while (!feof ($arquivo)) {
         //o numero ao final e a quantidade de bits reservada pra variavel
@@ -49,6 +50,7 @@ if ( !empty($_POST['arquivo']) ){
      $arrayRetorno[6] = $qtdCriterios;
     
     echo json_encode($arrayRetorno);
+    //gerar a parte q falta da matriz cheia aqui
 }
 
 
