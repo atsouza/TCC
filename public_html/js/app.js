@@ -25,8 +25,7 @@ function showConfigsContent() {
 // var contItem = 0; //usado em addItem()
 var contCriterio = 0; //usado em addCriterio()
 
-function montarMatriz() {
-    document.querySelector('.matriz-info-holder').style.display = 'block';
+function montarMatriz() {    
 //    var matriz = document.querySelector('#area-matriz');
 
     document.querySelector('#info-it').innerHTML = "<label>Item</label></br>";
@@ -93,6 +92,7 @@ function montarMatriz() {
         alert("cheque todas as importancias!");
     } else {
         hideConfigsContent();
+        document.querySelector('.matriz-info-holder').style.display = 'block';
         gerarMatriz(contItemAux, contCritAux);
     }
 

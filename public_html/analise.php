@@ -39,7 +39,7 @@ echo "
                     </div>
 
                     <div class='botao-run'>
-                        <button class='botao1' onclick='hideConfigsContent();montarMatriz();' title='Montar Matriz de Dados'>Confirmar</button>
+                        <button class='botao1' onclick='montarMatriz();' title='Montar Matriz de Dados'>Confirmar</button>
                     </div>
 
                 </div>
