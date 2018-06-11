@@ -25,9 +25,11 @@ function showConfigsContent() {
 // var contItem = 0; //usado em addItem()
 var contCriterio = 0; //usado em addCriterio()
 
-function montarMatriz() {    
-//    var matriz = document.querySelector('#area-matriz');
+function montarMatriz() {
+    $("#btn-import").hide();
+    $("#btn-execute").show();
 
+    //    var matriz = document.querySelector('#area-matriz');
     document.querySelector('#info-it').innerHTML = "<label>Item</label></br>";
     var contItemAux = 0;
     var contador = 0;
@@ -80,11 +82,11 @@ function montarMatriz() {
             contImport++;
         }
 
-//        if (aux[0] != null) {            
-//            console.log("cu " + aux[0].value);
-//            document.querySelector('#info-importancia').innerHTML += "" + (contCritAux + 1) + ":<input id='pimportancia" + contCritAux + "' name='peso-importancia" + contCritAux + "' readonly='readonly' value='" + aux[0].value + "'></input></br>";
-//            contCritAux++;
-//        }
+        //        if (aux[0] != null) {            
+        //            console.log("cu " + aux[0].value);
+        //            document.querySelector('#info-importancia').innerHTML += "" + (contCritAux + 1) + ":<input id='pimportancia" + contCritAux + "' name='peso-importancia" + contCritAux + "' readonly='readonly' value='" + aux[0].value + "'></input></br>";
+        //            contCritAux++;
+        //        }
         contador++;
     }
 
@@ -95,11 +97,8 @@ function montarMatriz() {
         document.querySelector('.matriz-info-holder').style.display = 'block';
         gerarMatriz(contItemAux, contCritAux);
     }
-
     // matriz.innerHTML += "</div>";
-
 }
-
 
 function gerarMatriz(nItens, nCriterios) {
     var codigoMatriz = "";
@@ -112,19 +111,85 @@ function gerarMatriz(nItens, nCriterios) {
             var auxI = document.querySelector(idItem).value;
             var auxC = document.querySelector(idCrit).value;
 
-//             placeholder='"+auxI+" - "+auxC+"'
-//             title='item: " + (i + 1) + " criterio: " + (j + 1) + "'
+            //             placeholder='"+auxI+" - "+auxC+"'
+            //             title='item: " + (i + 1) + " criterio: " + (j + 1) + "'
             codigoMatriz += "<input type='number' title='item: " + auxI + " criterio: " + auxC + "'  class='celula' name='matriz" + i + "-" + j + "' id='matriz" + i + "-" + j + "'>";
         }
         codigoMatriz += "</div>";
     }
-
     document.querySelector('#area-matriz').innerHTML = codigoMatriz;
 }
 
+function gerarMatrizPeloImport(itens, criterios, pesos, importancias, matriz) {
 
+    var auxI = itens.split(',');
+    var auxC = criterios.split(',');
+    var auxP = pesos.split(',');
+    var auxIm = importancias.split(',');
+    var auxM = matriz.split(',');
+    var nItens = auxI.length;
+    var nCriterios = auxC.length;
+    var nMatriz = auxM.length;
+
+    document.querySelector('#info-it').innerHTML = "<label>Itens</label></br>";
+    var contador = 0;
+    while (contador < nItens) {
+        var idItem = "#item" + contador;
+        document.querySelector('#info-it').innerHTML += "" + (contador + 1) + ":<input id='itm" + contador + "' name='item" + contador + "' readonly='readonly' value='" + auxI[contador] + "'></input></br>";
+        contador++;
+    }
+
+    document.querySelector('#info-cri').innerHTML = "<label>Criterio</label></br>";
+    contador = 0;
+    while (contador < nCriterios) {
+        var idCrit = "#criterio" + contador;
+        document.querySelector('#info-cri').innerHTML += "" + (contador + 1) + ":<input id='crit" + contador + "' name='criterio" + contador + "' readonly='readonly' value='" + auxC[contador] + "'></input></br>";
+        contador++;
+    }
+
+    document.querySelector('#info-pcri').innerHTML = "<label>PesoCriterio</label></br>";
+    contador = 0;
+    while (contador < nCriterios) {
+        var idPesoCrit = "#peso-criterio" + contador;
+        document.querySelector('#info-pcri').innerHTML += "" + (contador + 1) + ":<input id='pcrit" + contador + "' name='peso-criteri" + contador + "' readonly='readonly' value='" + auxP[contador] + "'></input></br>";
+        contador++;
+    }
+
+    document.querySelector('#info-importancia').innerHTML = "<label>Importâncias</label></br>";
+    contador = 0;
+    while (contador < nCriterios) {
+        var idImportancia = "maxmin" + contador;
+        document.querySelector('#info-importancia').innerHTML += "" + (contador + 1) + ":<input id='pimportancia" + contador + "' name='peso-importancia" + contador + "' readonly='readonly' value='" + auxIm[contador] + "'></input></br>";
+        contador++;
+    }
+
+    hideConfigsContent();
+    document.querySelector('.matriz-info-holder').style.display = 'block';
+    var codigoMatriz = "";
+    var indice = 0;
+
+    for (var i = 0; i < nItens; i++) {
+        codigoMatriz += "<div class='linhaMatriz'>";
+        for (var j = 0; j < nCriterios; j++) {
+            var idItem = "#itm" + i;
+            var idCrit = "#crit" + j;
+            // var auxI = document.querySelector(idItem).value;
+            // var auxC = document.querySelector(idCrit).value;
+            codigoMatriz += "<input type='number' title='item: " + idItem + " criterio: " + idCrit + "'  class='celula' name='matriz" + i + "-" + j + "' id='matriz" + i + "-" + j + "' value='" + auxM[indice] + "'> ";
+            indice ++;
+        }
+        codigoMatriz += "</div>";        
+    }
+    document.querySelector('#area-matriz').innerHTML = codigoMatriz;
+
+    $("#btn-import").hide();
+    $("#btn-execute").show();
+    
+    
+}
 
 var contItem = 0;
+
 function addItem() {
     var wrapper = $("#itens"); //Fields wrapper
 
@@ -217,7 +282,6 @@ function addCamposVetorPesos() {
 function addLabel() {
     var alterns = document.getElementsByClassName('alternativa');
     var atribs = document.getElementsByClassName('atributo');
-
 
     for (var i = 0; i < atribs.length; i++) {
         var labelAtr = "#rotuloAtributo" + i;

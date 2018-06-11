@@ -88,7 +88,7 @@ function runTopSis() {
 
     exporta();
 
-    $("#btn-option").hide();
+    $("#btn-execute").hide();
     $("#btn-export").show();
 }
 
@@ -320,6 +320,26 @@ function exporta() {
             modal('Erro', 'Verifique sua conexão.', "PROSSEGUIR");
         }
     });
+}
+
+function destroyFile(fileName){
+    $.ajax({
+        url: 'ajax.php',
+        type: 'POST',
+        data: { "destroy": fileName },
+        success: function (retorno) {
+            try {
+                // meusPedidos = jQuery.parseJSON(retorno);
+                // alert('deu certo');
+            } catch (e) {
+                // modal('Erro', r, "PROSSEGUIR");
+                alert('deu errado');
+            }
+        },
+        error: function (a, b, c) {
+            modal('Erro', 'Verifique sua conexão.', "PROSSEGUIR");
+        }
+    }); 
 }
 
 

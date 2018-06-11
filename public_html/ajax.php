@@ -2,7 +2,9 @@
 
 if ( !empty($_POST['string']) ){
 
-    $arquivo = "meu_arquivo.txt";
+    $arquivo = str_replace(":", "a", $_SERVER['REMOTE_ADDR']);
+    $arquivo = str_replace(".", "x", $arquivo);
+    $arquivo = $arquivo . ".txt";
     
     $fp = fopen($arquivo, "w");
     
@@ -11,10 +13,14 @@ if ( !empty($_POST['string']) ){
     fclose($fp);
 }
 
-// if ( !empty($_POST['arquivo']) ){
+if ( !empty($_POST['destroy']) ){
+    if (file_exists($_POST['destroy'])) unlink($_POST['destroy']);
+}
+
 if ( !empty($_FILES["upload"]) ){
 
-    $arquivo =  fopen ($_FILES['upload']['name'], "r");
+    $arquivo =  fopen($_FILES['upload']['tmp_name'], "r");
+    // $arquivo =  $_FILES['upload']['name'];
 
     while (!feof ($arquivo)) {
         //o numero ao final e a quantidade de bits reservada pra variavel
@@ -46,11 +52,9 @@ if ( !empty($_FILES["upload"]) ){
     $matriz = explode('^,', $aux[4])[1];   
     $arrayRetorno[4] = $matriz;
     
-     $arrayRetorno[5] = $qtdItens; 
-     $arrayRetorno[6] = $qtdCriterios;
-    
-    echo json_encode($arrayRetorno);
-    //gerar a parte q falta da matriz cheia aqui
+    session_start();
+    $_SESSION['valores'] = $arrayRetorno;    
+    header('Location:analise.php');
 }
 
 

@@ -1,4 +1,5 @@
 <?php 
+
 echo "
 <html>
     <head>
@@ -9,7 +10,6 @@ echo "
         <script type='text/javascript' src='js/app.js'></script>
         <meta charset='UTF-8'>
     </head>
-
     <body>
         
         <div id='navbar'>
@@ -44,7 +44,7 @@ echo "
 
                 </div>
 
-                <div class='matriz-info-holder' style='display: none'>
+                <div class='matriz-info-holder' style='display: none' >
                     <div class='info-container'>
                         <div id='info-it' class='infos'>
                             <label>Item</label></br>
@@ -78,24 +78,30 @@ echo "
 
                 </div>
 
-                <div id='btn-option'>
+                <div id='btn-execute' hidden>
                     <button class='botao-run botao-edit' onclick='runTopSis();'>Executar</button>
                 </div>
 
                 <br>
 
-                <div id='btn-import'>
-                    <form action='colocar a pagina com a matriz gerada' method='post' enctype='multipart/form-data'>
+                <div id='btn-import' >
+                    <form action='ajax.php' method='post' enctype='multipart/form-data'>
                         <input type='file' name='upload' id='upload'><br> 
                         <input type='submit' value='Enviar'> 
                         <input type='reset' value='Apagar'>
                     </form>
                 </div>
 
-                <br>
+                <br>";
                 
+                $arquivo = str_replace(":", "a", $_SERVER['REMOTE_ADDR']);
+                $arquivo = str_replace(".", "x", $arquivo);
+                $arquivo = $arquivo . ".txt";
+                // $arquivo = "meu_arquivo.txt";
+
+                echo "
                 <div id='btn-export' hidden>
-                    <a target='_blank' href='meu_arquivo.txt' download>Exportar para Download</a>
+                    <a target='_blank' onclick=destroyFile('".$arquivo."'); href='".$arquivo."' download>Exportar para Download</a>
                 </div>
 
               
@@ -106,6 +112,14 @@ echo "
     </body>
 
 </html>";
+
+session_start();
+if (!empty($_SESSION)) {
+    echo '<script type="text/javascript">
+        gerarMatrizPeloImport("'.$_SESSION['valores'][0].'" , " '.$_SESSION['valores'][1].'" , "'.$_SESSION['valores'][2].'" , "'.$_SESSION['valores'][3].'" , "'.$_SESSION['valores'][4].'");
+    </script>';
+}
+session_destroy();
 
 
 ?>
