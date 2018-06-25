@@ -78,16 +78,16 @@ echo "
                 </div>
 
                 <div id='btn-execute' hidden>
-                    <button class='botao-run botao-edit' onclick='runTopSis();'>Executar</button>
+                    <button class='botao-run botao-edit botao1' onclick='runTopSis();'>Executar</button>
                 </div>
 
                 <br>
 
                 <div id='btn-import' >
                     <form action='ajax.php' method='post' enctype='multipart/form-data'>
-                        <input type='file' name='upload' id='upload'><br> 
-                        <input type='submit' value='Enviar'> 
-                        <input type='reset' value='Apagar'>
+                        <input type='file' class='botao1' name='upload' id='upload'><br> 
+                        <input type='submit' class='botao1' value='Enviar'> 
+                        <input type='reset' class='botao1' value='Apagar'>
                     </form>
                 </div>
 
