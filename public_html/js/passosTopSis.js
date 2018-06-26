@@ -82,14 +82,24 @@ function runTopSis() {
     step3 = passo3(step2, importancias, itens, criterios);
     step4 = passo4(step2, step3, itens, criterios);
     step5 = passo5(step4, itens);
-    
-    alert('resultado foi imprimido no console');
-    console.log(step5);
 
-    exporta();
-
+    $(".mascara").show();
+    $(".window").show();
     $("#btn-execute").hide();
     $("#btn-export").show();
+
+    var retornoHtml = '<a onclick="fechaModal();" id="fechaModal">Fechar X </a><br><div id="title">Rankeamento</div><br>'; var i = 1;
+
+    step5.forEach(element => {
+        retornoHtml = retornoHtml + i + 'º - Item: ' + element['name'] + ' - Classificação: ' + element['value'] + '<br>';
+        i++;
+    });
+
+    // retornoHtml = retornoHtml + '';
+
+    $("#resultadoTopSis").html(retornoHtml);
+
+    exporta();
 }
 
 //normalizar a matriz
@@ -340,6 +350,11 @@ function destroyFile(fileName){
             modal('Erro', 'Verifique sua conexão.', "PROSSEGUIR");
         }
     }); 
+}
+
+function fechaModal(){
+    $(".mascara").hide();
+    $(".window").hide();
 }
 
 

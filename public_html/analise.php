@@ -17,14 +17,19 @@ echo "
             <a href='analise.php'>Criar Análise</a>
             <a href='about.html'>Sobre</a>            
             <a href='manual.html'>Manual do Usuário</a>
-        </div>        
-        <br><br><br>               
+        </div>     
+        
+        <div class='mascara' hidden></div>
 
+        <div class='window' hidden> 
+            <div id='resultadoTopSis'></div>
+        </div>
+
+        <br><br><br>    
 
         <div class='container'>
 
             <div id='content' class='content'>
-
                 <div class='configs'>
                     <div class='criterios'>
                         <button id='add-criterio' onclick='addCriterio();' title='Adicionar Criterio/SubCriterio'>+ Criterio</button>
