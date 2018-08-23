@@ -5,31 +5,64 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-    <head>
-        <title>Manual do Usuário</title>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div id="navbar">
-            <a href="index.html">Home</a>
-            <a href="analise.php">Criar Análise</a>
-            <a href="about.html">Sobre</a>
-            <a href="manual.html">Manual do Usuário</a>
-        </div>        
-        <br><br>
 
-        <div class="container">
+<head>
+    <title>Manual do Usuário</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div id="navbar">
+        <a href="index.html">Home</a>
+        <a href="analise.php">Criar Análise</a>
+        <a href="about.html">Sobre</a>
+        <a href="manual.html">Manual do Usuário</a>
+    </div>
+    <br>
+    <br>
+
+    <div class="container">
+
+        <div id="content" class="content">
+            <br>  
+            <span class="manual-title">Acesso Ao Sistema</span>
+            <p>A aplicação está disponível e pode ser acessada pelo endereço www2.bcc.unifalmg.edu.br/ahp.
+            </p>
+
+            <br>  
+            <span class="manual-title">Criando Análise</span>
+            <p>Clicar no botão <span class="manual-navbar">Criar Análise</span> na barra de navegação.</p>
+            <p>Após ser redirecionado para nova tela, você deverá clicar no botão <span class="botao1">+ Critério</span>, e completar os dados de cada critério da sua
+                avaliação, os dados necessários são: o nome do critério, peso, e indicar se quanto maior melhor, ou quanto menor melhor.</p>
+            <p>Após preenchido todos os critérios, você deve inserir os itens quem você quer comparar, clicando no botão <span class="botao1">+ Item</span> para adiciona-los indicando o nome de cada item da sua avaliação.</p>
+            <p>Após configurado todos itens e critéris clicar no botao <span class="botao1">Confirmar</span>, aparecerá a nova area para preenchimento
+                de matriz.</p>
+
+            <br>    
+            <span class="manual-title">Montando a matriz</span>
+            <p>para montar sua matriz voce deve preencher os dados de cada item com seus respectivos criterios, cada linha da matriz representa  um de seus itens.
+                 Após ter completado sua matriz você deverá clicar no botão <span class="botao1">Executar</span>.</p>
+
+            <br>  
+            <span class="manual-title">Resultados</span>
+            <p>Após ter clicado no botão <span class="botao1">Executar</span>, abrira um modal com o resultado da execução do algoritmo, neste modal será exibido a colocação, o nome do item e sua nota Final.
+                Depois de fechar o modal, você podera tambem fazer um download da sua matriz no seu estado atual clicando no botão <span class="botao1">Exportar para Download</span> , para futuramente recalcular os resultados sem ter que preenchê-lá denovo.
+            </p>
+
+            <br>  
+            <span class="manual-title">Carregando Estado de Matriz</span>
+            <p>Se você fez o download do arquivo préviamente, você pode clicar no botão <span class="manual-navbar">Criar Análise</span> e depois em <input type="file" class="botao1" disabled> para carregar o arquivo previamente baixado,
+                 uma obsevação é que voce não deve alterar o conteúdo deste arquivo manualmente para não atrapalhar a execução da leitura do programa</p>
 
 
-
-            <div id="content" class="content">
-                Em construção!
-
-            </div><!-- fim content -->   
+        </div>
+        <!-- fim content -->
 
 
-        </div> <!-- fim container -->
-    </body>
+    </div>
+    <!-- fim container -->
+</body>
+
 </html>

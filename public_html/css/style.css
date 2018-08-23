@@ -250,6 +250,32 @@
     margin-bottom: -15px;
 }
 
+.manual-title{
+    color: #4286f4;
+    font-size: 25px;
+    text-align: center;
+}
+
+.manual-navbar{
+    box-sizing: border-box; 
+    margin: 5px;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: #317ef9;
+    color: white;
+    text-decoration: underline;
+}
+
+#btn-export {
+    display: none;
+}
+
+#btn-export a{
+    text-decoration: none;
+    color: white;
+}
+
 /*DAQUI*/
 /* esse trecho faz sumir as setas dos campos type="number" */
 [type="number"] {

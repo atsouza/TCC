@@ -32,14 +32,14 @@ echo "
             <div id='content' class='content'>
                 <div class='configs'>
                     <div class='criterios'>
-                        <button id='add-criterio' onclick='addCriterio();' title='Adicionar Criterio/SubCriterio'>+ Criterio</button>
+                        <button id='add-criterio' class='botao1' onclick='addCriterio();' title='Adicionar Criterio/SubCriterio'>+ Critério</button>
                         <div id='area-criterios'>
 
                         </div>
                     </div>
 
                     <div id='itens' class='itens'>
-                        <button id='add-item' onclick='addItem();' title='Adicionar Item'>+ Item</button>
+                        <button id='add-item' onclick='addItem();' class='botao1' title='Adicionar Item'>+ Item</button>
                     </div>
 
                     <div class='botao-run'>
@@ -104,7 +104,7 @@ echo "
                 // $arquivo = "meu_arquivo.txt";
 
                 echo "
-                <div id='btn-export' hidden>
+                <div id='btn-export'  class='botao1'> 
                     <a target='_blank' onclick=destroyFile('".$arquivo."'); href='".$arquivo."' download>Exportar para Download</a>
                 </div>
 

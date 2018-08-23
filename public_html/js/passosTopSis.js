@@ -339,8 +339,7 @@ function destroyFile(fileName){
         data: { "destroy": fileName },
         success: function (retorno) {
             try {
-                // meusPedidos = jQuery.parseJSON(retorno);
-                // alert('deu certo');
+                $("#btn-export").css('display','none');
             } catch (e) {
                 // modal('Erro', r, "PROSSEGUIR");
                 alert('deu errado');
