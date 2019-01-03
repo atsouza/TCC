@@ -2,6 +2,7 @@ var arrayItensNames = [];
 var exportString = '';
 
 function runTopSis() {
+    
     var varAuxIt = $("#info-it input:last").attr('id');
     var itens = parseInt(varAuxIt.split('m')[1]);
 
@@ -23,14 +24,44 @@ function runTopSis() {
 
     var linha = new Object();
 
+    //pegando escopo dos pesos
+    exportString = "<meta charset='UTF-8'><table border='1' ><tr><td>Pesos</td>";
+    for (i = 0; i <= criterios; i++) {
+        exportString = exportString + '<td>' + $("#pcrit" + i).val() + '</td>';
+    }
+    exportString = exportString + '</tr><tr><td>Importancia</td>';
+
+    //pegando escopo das importancias
+    for (i = 0; i <= criterios; i++) {
+        var aux = $("#pimportancia" + i).val();
+        if (aux.length < 1) {
+            exportString = exportString + '<td>max</td>';
+        } else {
+            exportString = exportString + '<td>min</td>';
+        }
+    }
+    exportString = exportString + '</tr><tr><td>Itens</td>';
+
     //pegando escopo dos criterios
-    exportString = exportString + itens + '^';
+    for (i = 0; i <= criterios; i++) {
+        exportString = exportString + '<td>' + $("#crit" + i).val() + '</td>';
+    }
+    exportString = exportString + '</tr>';
 
+    for ( i = 0; i <= itens; i++) {
+        exportString = exportString + '<tr><td>' + $("#itm" + i).val() + '</td>';
+        for ( j = 0; j <= criterios; j++) {
+            exportString = exportString + '<td>'+ $("#matriz" + i + "-" + j).val() +'</td>';            
+        }
+        exportString = exportString + '</tr>';
+    }
+    
+    exportString = exportString + '</table>';
+
+    exporta();
+ 
+    //pegando escopo dos criterios
     for (i = 0; i <= itens; i++) {
-
-        //pegando escopo dos criterios
-        exportString = exportString + ',' + $("#itm" + i).val();
-
         //atribuindo novo vetor para ordenação
         var itemName = [];
         itemName['name'] = '';
@@ -39,42 +70,10 @@ function runTopSis() {
 
         var coluna = new Object();
         for (j = 0; j <= criterios; j++) {
-            // var strId = ("#" + i + "-" + j)
             var valorCelula = $("#matriz" + i + "-" + j).val();
             coluna["" + j + ""] = valorCelula;
         }
         linha["" + i + ""] = coluna;
-    }
-
-    //pegando escopo dos criterios
-    exportString = exportString + '~' + criterios  + '^';
-    for (i = 0; i <= criterios; i++) {
-        exportString = exportString + ',' + $("#crit" + i).val();
-    }
-
-    //pegando escopo dos pesos
-    exportString = exportString + '~' + criterios  + '^';
-    for (i = 0; i <= criterios; i++) {
-        exportString = exportString + ',' + $("#pcrit" + i).val();
-    }
-
-    //pegando escopo das importancias
-    exportString = exportString + '~' + criterios  + '^';
-    for (i = 0; i <= criterios; i++) {
-        var aux = $("#pimportancia" + i).val();
-        if (aux.length < 1) {
-            exportString = exportString + ',' + 'max';
-        } else {
-            exportString = exportString + ',' + 'min';
-        }
-    }
-
-    //pegando matriz
-    exportString = exportString + '~^';
-    for (i = 0; i <= itens; i++) {
-        for (j = 0; j <= criterios; j++) {
-            exportString = exportString + ',' + $("#matriz" + i + "-" + j).val();
-        }
     }
 
     step1 = passo1(linha, itens, criterios);
@@ -95,11 +94,7 @@ function runTopSis() {
         i++;
     });
 
-    // retornoHtml = retornoHtml + '';
-
     $("#resultadoTopSis").html(retornoHtml);
-
-    exporta();
 }
 
 //normalizar a matriz
@@ -330,25 +325,6 @@ function exporta() {
             modal('Erro', 'Verifique sua conexão.', "PROSSEGUIR");
         }
     });
-}
-
-function destroyFile(fileName){
-    $.ajax({
-        url: 'ajax.php',
-        type: 'POST',
-        data: { "destroy": fileName },
-        success: function (retorno) {
-            try {
-                $("#btn-export").css('display','none');
-            } catch (e) {
-                // modal('Erro', r, "PROSSEGUIR");
-                alert('deu errado');
-            }
-        },
-        error: function (a, b, c) {
-            modal('Erro', 'Verifique sua conexão.', "PROSSEGUIR");
-        }
-    }); 
 }
 
 function fechaModal(){

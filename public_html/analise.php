@@ -98,17 +98,10 @@ echo "
 
                 <br>";
                 
-                $arquivo = str_replace(":", "a", $_SERVER['REMOTE_ADDR']);
-                $arquivo = str_replace(".", "x", $arquivo);
-                $arquivo = $arquivo . ".txt";
-                // $arquivo = "meu_arquivo.txt";
-
                 echo "
                 <div id='btn-export'  class='botao1'> 
-                    <a target='_blank' onclick=destroyFile('".$arquivo."'); href='".$arquivo."' download>Exportar para Download</a>
-                </div>
-
-              
+                    <a  href='gerarPdf.php' style='cursor:pointer'>Exportar para Download</a>
+                    </div>
                 </div><!-- fim content -->                  
 
         </div> <!-- fim container -->
@@ -118,7 +111,7 @@ echo "
 </html>";
 
 session_start();
-if (!empty($_SESSION)) {
+if (!empty($_SESSION['valores'])) {
     echo '<script type="text/javascript">
         gerarMatrizPeloImport("'.$_SESSION['valores'][0].'" , " '.$_SESSION['valores'][1].'" , "'.$_SESSION['valores'][2].'" , "'.$_SESSION['valores'][3].'" , "'.$_SESSION['valores'][4].'");
     </script>';

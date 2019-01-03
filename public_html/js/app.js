@@ -122,11 +122,11 @@ function gerarMatriz(nItens, nCriterios) {
 
 function gerarMatrizPeloImport(itens, criterios, pesos, importancias, matriz) {
 
-    var auxI = itens.split(',');
-    var auxC = criterios.split(',');
-    var auxP = pesos.split(',');
-    var auxIm = importancias.split(',');
-    var auxM = matriz.split(',');
+    var auxI = itens.split(';');
+    var auxC = criterios.split(';');
+    var auxP = pesos.split(';');
+    var auxIm = importancias.split(';');
+    var auxM = matriz.split(';');
     var nItens = auxI.length;
     var nCriterios = auxC.length;
     var nMatriz = auxM.length;
