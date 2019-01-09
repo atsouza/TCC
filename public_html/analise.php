@@ -76,7 +76,7 @@ echo "
                         </div>
 
                         <div class='botao-run'>
-                            <button class='botao-edit' onclick='showConfigsContent();'>Editar Configurações</button>
+                            <button class='botao-edit' id='botao-edit-configs' onclick='showConfigsContent();'>Editar Configurações</button>
                         </div>
                     </div>
 
@@ -100,7 +100,7 @@ echo "
                 
                 echo "
                 <div id='btn-export'  class='botao1'> 
-                    <a  href='gerarPdf.php' style='cursor:pointer'>Exportar para Download</a>
+                    <a  href='gerarExcel.php' style='cursor:pointer'>Exportar para Download</a>
                     </div>
                 </div><!-- fim content -->                  
 

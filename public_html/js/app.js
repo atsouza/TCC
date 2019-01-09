@@ -183,6 +183,7 @@ function gerarMatrizPeloImport(itens, criterios, pesos, importancias, matriz) {
     document.querySelector('#area-matriz').innerHTML = codigoMatriz;
 
     $("#btn-import").hide();
+    $("#botao-edit-configs").hide();
     $("#btn-execute").show();
     
     
